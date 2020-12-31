@@ -3,12 +3,12 @@
 ## **教程目录(pdf):**
 
 - [《西说 Git》](./pdf/git.pdf)
-- [《西说 DevOps》](./pdf/freebsd.pdf)
+- [《西说 FreeBSD》](./pdf/freebsd.pdf)
 
 ## **源码目录(latex):**
 
 - [《西说 Git》](./src/git)
-- [《西说 DevOps》](./src/freebsd)
+- [《西说 FreeBSD》](./src/freebsd)
 
 ## 联系
 
