@@ -1,3 +1,6 @@
+*.pdf
+.DS_Store # MacOS
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -19,7 +22,7 @@
 # these rules might exclude image files for figures etc.
 # *.ps
 # *.eps
-*.pdf
+# *.pdf
 
 ## Generated if empty string is given at "Please type another file name for output:"
 .pdf
@@ -40,10 +43,6 @@
 *.synctex.gz(busy)
 *.pdfsync
 
-## Build tool directories for auxiliary files
-# latexrun
-latex.out/
-
 ## Auxiliary and intermediate files from other packages:
 # algorithms
 *.alg
@@ -63,9 +62,6 @@ acs-*.bib
 
 # changes
 *.soc
-
-# comment
-*.cut
 
 # cprotect
 *.cpt
@@ -191,9 +187,6 @@ sympy-plots-for-*.tex/
 *.pytxcode
 pythontex-files-*/
 
-# tcolorbox
-*.listing
-
 # thmtools
 *.loe
 
@@ -205,15 +198,8 @@ pythontex-files-*/
 # todonotes
 *.tdo
 
-# vhistory
-*.hst
-*.ver
-
 # easy-todo
 *.lod
-
-# xcolor
-*.xcp
 
 # xmpincl
 *.xmpi
@@ -239,9 +225,6 @@ TSWLatexianTemp*
 # Texpad
 .texpadtmp
 
-# LyX
-*.lyx~
-
 # Kile
 *.backup
 
@@ -257,3 +240,8 @@ TSWLatexianTemp*
 
 # standalone packages
 *.sta
+
+# generated if using elsarticle.cls
+*.spl
+
+.DS_Store

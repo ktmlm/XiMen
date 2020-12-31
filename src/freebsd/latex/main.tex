@@ -1,0 +1,63 @@
+% !TEX program = xelatex
+
+\input{settings.tex}
+
+\title{\huge\textbf{《西说FreeBSD》}}
+\author{\href{https://github.com/XiMen-classroom}{\LARGE \textbf{西~门}}}
+\date{二零一九年五月一日}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\thispagestyle{empty}
+\maketitle
+
+~\par
+西门？何许人也？
+
+西门，本名范辉，西门课堂创始人，基础平台架构师，Linux专家，一万小时程序员，一线大厂资深后端，区块链拓荒者，Rust语言布道者$\cdots$%
+好吧，说人话，十年老码农，技术狂，热爱开源，乐于分享。
+
+~\par
+欢迎来到西门课堂，听西门老师说FreeBSD！
+
+~\par
+FreeBSD是什么？
+
+FreeBSD是BSD\footnote{BSD，Berkeley Software Distribution，最早的UNIX衍生系统，1977至1995年间由加州大学伯克利分校开发}类操作系统的一个核心分支，在世界范围内都有广泛的应用，至今已有30多年的历史。关于BSD，不得不提的是：
+\begin{ITEMIZE}
+    \item TCP/IP协议族的基石---sockets\footnotemark，是由BSD发明的
+    \item Linux诞生与发展的过程中，大量借鉴了BSD的设计
+    \item 苹果公司的手机操作系统IOS是基于FreeBSD开发的
+    \item 苹果公司的电脑操作系统Mac OS X是基于FreeBSD开发的
+    \item 思科公司的网络设备嵌入式操作系统IOS，是基于FreeBSD开发的
+\end{ITEMIZE}
+\footnotetext{Berkeley sockets，伯克利套接字，详情参见\href{https://en.wikipedia.org/wiki/Berkeley_sockets}{维基百科}}
+
+~\par
+本书风格是提纲式的解说，力求简单明了，需要详细步骤演示的同学，请结合\href{https://space.bilibili.com/393582752}{视频教程}一起学习，西门课堂的B站主页是：
+
+\href{https://space.bilibili.com/393582752}{space.bilibili.com/393582752}
+
+~\par
+\begin{center}
+    \includegraphics[width=0.3\textwidth]{figs/WeChat.jpg}\\
+    \textcolor{gray}{扫码加微信，欢迎技术交流}
+\end{center}
+
+% 目录页码使用罗马数字
+\pagenumbering{Roman}
+\tableofcontents
+
+% 正文使用阿拉伯数字
+\clearpage
+\pagenumbering{arabic}
+
+\input{chapters/01-basic/00-mod.tex}
+\input{chapters/02-advanced/00-mod.tex}
+\input{chapters/03-appendices/00-mod.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

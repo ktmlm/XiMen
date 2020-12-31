@@ -1,0 +1,35 @@
+%!TEX program = xelatex
+
+\documentclass[print,aspectratio=43]{beamer}
+\usepackage[UTF8]{ctex}
+\usepackage[english]{babel}
+
+\input{codestyle.tex}
+
+\usetheme[navigation]{UMONS}
+
+\newcommand{\en}[1]{\raisebox{-0.16ex}{\,#1\,}}
+
+\title[Git, the king of VCS.]{GIT}
+\subtitle{版本控制之王}
+\author{范\quad 輝}
+\date{\today}
+\institute[BeiJing, China]{%
+    Rust Engineer\\
+    BeiJing, China
+    \\[2ex]
+    \raisebox{-0.5ex}{\includegraphics[height=5ex]{figures/logo_git}}
+}
+
+\begin{document}
+\thispagestyle{empty}
+\maketitle
+
+\input{./sections/00-简介.tex}
+\input{./sections/01-协作模式.tex}
+\input{./sections/02-协作平台.tex}
+\input{./sections/03-命令行.tex}
+\input{./sections/04-内部原理.tex}
+\input{./sections/05-总结.tex}
+
+\end{document}

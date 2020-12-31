@@ -1,0 +1,171 @@
+\documentclass[notitlepage,lecture,print]{report}
+
+\usepackage[UTF8]{ctex}
+\usepackage{graphicx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 西文字体：Monaco
+% 中文字体：文泉驿微米黑
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fontspec}
+\setmainfont{Monaco}
+\setsansfont{Monaco}
+\setmonofont{Monaco}
+\setCJKmainfont{WenQuanYi Micro Hei}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 添加顔色：solarized light
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor-solarized}
+\usepackage{xcolor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 页边距
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\geometry{top=15mm,bottom=15mm,left=15mm,right=15mm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 页眉页脚
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{titleps}
+\newpagestyle{main}[\small\bfseries]{
+    \sethead
+    [][\href{https://github.com/XiMen-classroom}{\color{gray} \large \texttt{XiMen-classroom}}][] % 偶数页
+    {}{\href{https://github.com/XiMen-classroom}{\color{gray} \large \texttt{XiMen-classroom}}}{} % 奇数页
+    \headrule % 页眉画线
+    \setfoot
+    {}{-\quad\thepage\quad-}{} % 页脚奇偶页相同
+    \footrule % 页脚画线
+}
+\pagestyle{main}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 脚注样式
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{pifont}
+\renewcommand{\thefootnote}{\ding{\numexpr171+\value{footnote}}}
+\renewcommand{\thempfootnote}{\fnsymbol{mpfootnote}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 附录
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[toc,page]{appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 缩小列表环境的行间距
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{enumitem}
+\setlist{nolistsep}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 定义 \NOTE 命令
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{inner_note}[1][.88]
+{
+    \begin{minipage}{#1\textwidth}
+        \colorbox{teal}{\textcolor{yellow}{NOTE}}\\% 提示标题顔色：茶绿背景，黄色字体
+}
+{
+    \end{minipage}
+}
+
+\newcommand{\NOTE}[2][.88]{
+    \begin{center}
+        \fbox{
+            \begin{inner_note}[#1]
+                #2
+            \end{inner_note}
+        }
+    \end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 带缩进的列表
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{ITEMIZE}[1][1em]
+{
+    \begin{itemize}[itemindent=#1]
+}{
+    \end{itemize}
+}
+
+\newenvironment{ENUMERATE}[1][1em]
+{
+    \begin{enumerate}[itemindent=#1]
+}{
+    \end{enumerate}
+}
+
+\newenvironment{DESCRIPTION}[1][1em]
+{
+    \begin{description}[itemindent=#1]
+}{
+    \end{description}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 链接引用
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[colorlinks, linkcolor=black, anchorcolor=black, citecolor=black]{hyperref}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 代码引用
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+\lstdefinestyle{base}{
+    tabsize=4,
+    frame=single, % 单线边框
+    frameround=tttt, % 边框圆角，f指尖角，t指圆角，如fttt指一个尖角，三个圆角
+    %
+    xleftmargin=2em,xrightmargin=2em,aboveskip=1em, % 代码框边界与页面的边距
+    %
+    % lineskip=-0.05em, % 行距调整
+    gobble=2, % 缩进字符数量
+    %
+    basicstyle=\small\color{black}\fontspec{Monaco},
+    keywordstyle=\color{orange!50!black},
+    stringstyle=\color{red},
+    commentstyle=\color{green!50!black},
+    backgroundcolor=\color{solarized-base3},
+    %
+    breaklines=true,
+    showstringspaces=false,
+    %
+    % numbers=right,
+    % numberstyle=\tiny,
+}
+
+\lstdefinestyle{sh}{
+    style=base,
+    language={sh},
+}
+
+\lstdefinestyle{rust}{
+    style=base,
+    language={[GNU]C++},
+    morekeywords={in,let,fn},
+}
+
+\lstdefinestyle{c}{
+    style=base,
+    language={[GNU]C++},
+}
+
+\lstdefinestyle{go}{
+    style=base,
+    language={[GNU]C++},
+    morekeywords={go,func},
+}
+
+\lstset{
+    style=sh,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 行内代码引用样式
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\LSTINLINE}[2][sh]{\colorbox{solarized-base3}{\lstinline[style=#1]{#2}}}

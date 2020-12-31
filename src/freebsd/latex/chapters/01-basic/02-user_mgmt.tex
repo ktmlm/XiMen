@@ -1,0 +1,83 @@
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{用户管理}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{交互式}
+
+\paragraph{增删用户}~
+\begin{lstlisting}
+    # 这两个命令会一项一项提示需要填写或选择的内容
+    # 最后还会弹出一个结果预览界面，以供确认是否执行
+    adduser
+    rmuser
+\end{lstlisting}
+
+\paragraph{修改用户属性}~
+
+\begin{lstlisting}
+    # 如果不指定用户名，默认修改当前用户自己的信息
+    # 这个命令会弹出一个文本编辑界面，保存退出后会批量应用更改的内容
+    # 默认启动的编辑器是vim
+    chpass [username]
+\end{lstlisting}
+
+\subsection{命令式}
+
+pw是FreeBSD下用户管理的高级通用工具\footnote{功能相当于Linux下useradd + userdel + usermod三者的综合}，提供了各种细化的配置选项，接下来给出几个常用功能的示例。
+
+\paragraph{添加用户或组}~
+
+\begin{lstlisting}
+    # -n 指定用户名，-u 指定 UID，-c 指定备注信息，-s 指定登陆 SHELL
+    # -w 表示初始密码设定策略，可选值有 yes(密码与用户名相同)、random(密码随机)等
+    # -G 将新用户加入 wheel、sshd 两个用户组，-m 表示创建家目录
+    pw useradd [-n] zhangsan -u 20000 -c 张三 -s /bin/sh -w random -G wheel,sshd -m
+
+    # -M 指定组成员
+    pw groupadd [-n] mygrp -g 20000 -M zhangsan,lisi,wangwu
+\end{lstlisting}
+
+\paragraph{查看用户或组信息}~
+
+\begin{lstlisting}
+    # -n 选项接受用户名或 UID为参数，用于标识要操作的用户，并且是可以省略的
+    # 后续命令的 -n 选项含义，均与此相同
+    # -P 以人类宜读的形式打印信息
+    # -a 显示所有用户的信息
+    pw usershow [-n] zhangsan -P
+    pw usershow -a
+
+    # -n 指定组名或 GID
+    pw groupshow [-n] wheel -P
+    pw groupshow -a
+\end{lstlisting}
+
+\paragraph{删除用户或组}~
+
+\begin{lstlisting}
+    # -r 表示同时删除用户家目录
+    pw userdel zhangsan -r
+    pw userdel 20000 -r
+
+    pw groupdel video
+\end{lstlisting}
+
+\paragraph{更改用户或组的属性}~
+
+\begin{lstlisting}
+    # 除 -n 外，其它选项都是用于指定要更改的内容，含义大多与添加用户时是一样的
+    # 比较特别是 -l 选项，用于指定新的用户名
+    pw usermod zhangsan -u 30000 -d /tmp/lisi -g sshd -G video,audio -s /bin/csh
+    pw usermod 20000 -l lisi -c 李四
+
+    # -g 指定新的 GID，-l 指定新的组名，-d 指定要删除的组成员
+    pw groupmod video -g 30000 -l VIDEO -d zhangsan,lisi
+\end{lstlisting}
+
+\paragraph{锁定与解锁用户}~
+
+\begin{lstlisting}
+    # 锁定之后无法登陆，解锁之后恢复登陆
+    pw lock zhangsan
+    pw unlock zhangsan
+\end{lstlisting}

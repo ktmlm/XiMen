@@ -1,0 +1,70 @@
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{软件管理}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{启用国内软件源}
+
+顺序执行如下命令，启用中科大软件源：
+\begin{lstlisting}
+    # pkg 源
+    mkdir -p /usr/local/etc/pkg/repos
+    cd !$
+    cat<<!>FreeBSD.conf
+    FreeBSD: { url: "pkg+http://mirrors.ustc.edu.cn/freebsd-pkg/${ABI}/quarterly" }
+    !
+
+    # port 源
+    cat<<!>/etc/make.conf
+    MASTER_SITE_OVERRIDE?=http://mirrors.ustc.edu.cn/freebsd-ports/distfiles/${DIST_SUBDIR}
+    !
+\end{lstlisting}
+
+\subsection{pkg方式}
+直接下载安装已经编译好的二进制包\footnote{类似于Ubuntu Linux的apt}，常用操作如下：
+
+\vspace{1ex}
+\begin{minipage}{\textwidth}
+    \small
+    \begin{tabular}{|l|l|}
+        \hline
+        pkg install <pkg name>&安装\\
+        pkg delete <pkg name>&卸载\\
+        pkg autoremove&清理\\
+        pkg -N&统计已安装的非系统包数量\\
+        pkg info&列出所有已安装的非系统包\\
+        pkg info <pkg name>&显示指定包的详细信息\\
+        pkg which <file path>&查询指定文件来源于哪个包\\
+        pkg check -s -a|<pkg name>&检查包的完整性(checksum)\\
+        pkg check -d -a|<pkg name>&检查并自动安装缺失的依赖包\\
+        pkg audit&对所有软件包进行安全审计\\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\subsection{port方式}
+从源码编译安装\footnote{类似于Gentoo Linux的emerge}，常用操作如下：
+
+\vspace{1ex}
+\begin{minipage}{\textwidth}
+    \small
+    \begin{tabular}{|l|l|}
+        \hline
+        portsnap fetch&下载最新的源码库快照\\
+        portsnap extract&展开快照，仅在首次同步快照时需要\\
+        portsnap update\footnote{通常合并执行：portsnap fetch [extract] update}&更新本地仓库快照\\
+        make config\footnote{执行任何make命令之前，需要首先切换到目标软件的源码路径}&配置编译选项\\
+        make [-jN] install&[N路并行]编译安装\\
+        make clean\footnote{通常合并执行：make [-j5] install clean}&清理临时文件\\
+        make deinstall&卸载\\
+        make reinstall&重装\\
+        \hline
+    \end{tabular}
+\end{minipage}
+
+\subsection{系统自身更新}
+
+\subsubsection{小版本更新}
+使用GENERIC内核的情况下，更新系统非常简单，执行\LSTINLINE{freebsd-update fetch install}即可；使用自定义内核的情况下，需要在更新完毕后重新编译内核。
+
+\subsubsection{大版本更新}
+生产环境中极少在既有系统之上进行操作系统的大版本更新，此处就不做无谓的论述了，有兴趣的同学可以参看\href{https://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/updating-upgrading.html}{官方文档}。

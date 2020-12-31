@@ -1,0 +1,53 @@
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{网络配置}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{地址与路由}
+
+\paragraph{手动管理}~
+
+\begin{lstlisting}
+    # 查看已建立的网络连接与服务端口
+    sockstat -c
+    sockstat -4 # IPV4
+    sockstat -6 # IPV6
+
+    # 设置 IP
+    ifconfig <网卡名称> 192.168.1.99 netmask 255.255.225.0
+
+    # 配置路由
+	route show 172.16.10.0                      # 显示指定网络的路由信息
+	route add -net 172.16.10.0/24 172.16.1.1    # 为特定网络设定静态路由
+	route add -net 0.0.0.0/0 192.168.1.1        # 设置默认路由
+	route add default 192.168.1.1               # 设置默认路由，简短语法
+	route change -net 172.16.10.0/24 172.16.1.2 # 更改静态路由
+	route delete -net 172.16.10.0/24 172.16.1.2 # 删除网络的指定路由
+	route flush                                 # 删除本机所有路由信息
+\end{lstlisting}
+
+\paragraph{配置文件}~
+
+也可以写在rc.conf.local等配置文件中，具体写法\,man rc.conf(5)\footnote{快速定位至网络配置，在手册中搜索network\_interfaces}。
+
+\subsection{FTP}
+ftpd是FreeBSD自带的一个精简实用的ftp服务器\footnote{如果名称为ftp的用户存在，且不在黑名单中，则任意用户可使用ftp匿名登陆服务器，可见范围被限制在ftp的家目录下}。
+\begin{lstlisting}
+    # 黑名单
+    echo "root" >> /etc/ftpusers
+
+    # 将所有用户锁定在指定目录(/home/ftp)下，禁止查看外部目录結构
+    echo "@ /home/ftp" >> /etc/ftpchroot
+
+    # 开机自启
+    echo "ftpd_enable="YES"" >> /etc/rc.conf
+\end{lstlisting}
+
+\subsection{NTP}
+nfpd是FreeBSD自带的时间同步服务器。
+\begin{lstlisting}
+    # /etc/rc.conf
+    ntpd_enable="YES"
+
+    # /etc/ntp.conf：用于陈列上游 NTP 服务器地址
+    server    ntp1.nl.net
+\end{lstlisting}

@@ -1,0 +1,21 @@
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{系统安装}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{准备虚拟机环境}
+
+可选Qemu、VirtualBox 、Vmware等虚拟方案，挑自己熟悉的即可。本书使用的是Linux平台上的Qemu方案，启动脚本参见第\pageref{ap:qemu}页的附录\ref{ap:qemu}。
+
+\subsection{获取系统盘并安装}
+
+\NOTE{%
+    官方提供了现成的多种格式的虚拟机镜像%
+    \footnote{不同的虚拟机需要的镜像格式不同，Qemu选择后缀名qcow2，Vmware或VirtualBox选择后缀名vmdk}，%
+    \href{http://mirrors.ustc.edu.cn/freebsd/releases/VM-IMAGES/12.0-RELEASE/amd64/Latest}{下载}%
+    \footnote{下载地址：\href{http://mirrors.ustc.edu.cn/freebsd/releases/VM-IMAGES/12.0-RELEASE/amd64/Latest}{mirrors.ustc.edu.cn/freebsd/releases/VM-IMAGES/12.0-RELEASE/amd64/Latest/}}%
+    完成后，将镜像导入虚拟机，就可以跳过安装环节，直接学习后续内容。%
+}
+
+国内访问官网比较慢，建议从\href{http://mirrors.ustc.edu.cn/freebsd/releases/ISO-IMAGES/12.0/}{中科大镜像站}下载系统安装盘。
+
+FreeBSD的安装过程非常简洁，按照向导一步步操作即可，初次操作可以全部使用默认选项。如有不解，可登陆西门课堂的B站主页观看\href{https://space.bilibili.com/393582752}{视频教程}，或与西门老师微信交流。

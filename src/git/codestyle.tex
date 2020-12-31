@@ -1,0 +1,73 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 西文字体：Monaco
+% 中文字体：文泉驿微米黑
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fontspec}
+\setmainfont{Monaco}
+\setsansfont{Monaco}
+\setmonofont{Monaco}
+\setCJKmainfont{WenQuanYi Micro Hei}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 添加顔色：solarized light
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor-solarized}
+\usepackage{xcolor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 代码引用
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{listings}
+\lstdefinestyle{base}{
+    tabsize=4,
+    frame=single, % 单线边框
+    frameround=tttt, % 边框圆角，f指尖角，t指圆角，如fttt指一个尖角，三个圆角
+    %
+    xleftmargin=2em,xrightmargin=2em,aboveskip=1em, % 代码框边界与页面的边距
+    %
+    % lineskip=-0.05em, % 行距调整
+    gobble=2, % 缩进字符数量
+    %
+    basicstyle=\small\color{black}\fontspec{Monaco},
+    keywordstyle=\color{orange!50!black},
+    stringstyle=\color{red},
+    commentstyle=\color{green!50!black},
+    backgroundcolor=\color{solarized-base3},
+    %
+    breaklines=true,
+    showstringspaces=false,
+    %
+    % numbers=right,
+    % numberstyle=\tiny,
+}
+
+\lstdefinestyle{sh}{
+    style=base,
+    language={sh},
+}
+
+\lstdefinestyle{rust}{
+    style=base,
+    language={[GNU]C++},
+    morekeywords={in,let,fn},
+}
+
+\lstdefinestyle{c}{
+    style=base,
+    language={[GNU]C++},
+}
+
+\lstdefinestyle{go}{
+    style=base,
+    language={[GNU]C++},
+    morekeywords={go,func},
+}
+
+\lstset{
+    style=sh,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 行内代码引用样式
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\LSTINLINE}[2][sh]{\colorbox{solarized-base3}{\lstinline[style=#1]{#2}}}

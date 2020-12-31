@@ -1,0 +1,86 @@
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{服务管理}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{配置文件}
+服务管理的配置文件有三个：
+
+\vspace{1ex}
+\begin{tabular}{|l|l|}
+    \hline
+    /etc/rc.conf.local&优先级最高\\
+    /etc/rc.conf&优先级中等\\
+    /etc/default/rc.conf&优先级最低\\
+    \hline
+\end{tabular}
+
+\vspace{1ex}
+在其中以\LSTINLINE{<服务名称>_enable="YES"}的格式写入，即表示开机启动某服务。
+
+\subsection{手动启停}
+
+\paragraph{已设置随机启动的服务}~
+\begin{lstlisting}
+    service <服务名称> start
+    service <服务名称> restart
+    service <服务名称> stop
+\end{lstlisting}
+
+\paragraph{未设置随机启动的服务}~
+\begin{lstlisting}
+    # 临时服务，即非随机启动的服务
+    # 其所有的子命令都需在标准子命令前加 one 前缀
+    service <服务名称> onestart
+    service <服务名称> onerestart
+    service <服务名称> onestop
+\end{lstlisting}
+
+\subsection{自定义服务}
+
+为非系统服务设置开机启动，通常有两种方式：
+\begin{ITEMIZE}
+    \item 在\,/etc/rc.local\,中追加指定服务的启动命令\footnote{已废弃但目前仍然可用，不推荐}
+    \item 在\,/usr/local/etc/rc.d\,中放置自定义的服务管理脚本
+\end{ITEMIZE}
+
+第一种方式是几乎所有类UNIX系统都支持或曾经支持的传统启动方式，目前在FreeBSD和大多数Linux发行版中都处于``已废弃但仍然可用''的状态；这里重点讲一下第二种方式中提到的服务管理脚本的书写格式，样板示例\footnote{具体到某个服务的实际启动脚本，可以到\,/etc/rc.d/\,路径下查看}如下：
+
+\begin{lstlisting}
+    #!/bin/sh
+
+    ######## 注意!!! 以下两行内容不是注释 ########
+    # PROVIDE: <服务名称>
+    # REQUIRE: <必须在这之前启动的服务列表，逗号分割>
+
+    # 服务名称，如 "sshd"
+    name="<服务名称>"
+
+    # 指定用于 /etc/rc.conf.local 等配置文件中的开机启动語法
+    # 如：此处 $name 设置为 sshd，则自启语法就是 sshd_enable="YES"
+    rcvar=${name}_enable
+
+    # 如： /usr/local/bin/sshd
+    command="<可执行文件的路径>"
+
+    # 可选：指定服务的 pid 文件存储路径，方便管理
+    # pidfile="<pid 路径>"
+
+    # 除 start/restart/onestart/onrestart/stop 等系统预置的子命令外，
+    # 在此列出用户自定义的其它子命令名称，以空格分割
+    extra_commands="<自定义子命令-1> <自定义子命令-2>"
+
+    # 用户自定义的子命令的具体实现，有两种方式：
+    # - 比较简单的直接在参数中写内容
+    # - 相对复杂的在参数中写自定义的函数的名称，并在之后实现该函数
+    <自定义子命令-1>_cmd="echo Hello World"
+    <自定义子命令-2>_cmd="do_<自定义子命令-2>"
+
+    do_<自定义子命令-2>() {
+        echo "Hello World Again"
+    }
+
+    # 以下三项为固定格式，用于设置系统预定义的环境
+    . /etc/rc.subr
+    load_rc_config $name
+    run_rc_command "$1"
+\end{lstlisting}

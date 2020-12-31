@@ -1,0 +1,39 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\section{桌面环境}
+%%%%%%%%%%%%%%%%%%%%%%%
+
+FreeBSD总体来说不适合用作通用的桌面环境，其对新硬件的支持速度远落后于Windows、Linux等系统，桌面软件的数量也较少。
+
+但如果需要的仅仅是一个极简的高效开发环境，那么前面所说的缺点，反而会成为优点，因为太多花里胡哨的东西，只会对你造成干扰。
+
+以下是Intel平台安装xfce桌面的简单示例：
+
+\begin{lstlisting}
+    # 安装基本环境
+    pkg install xorg xfce
+
+    # 确保开机加载声卡与显卡驱动
+    cat<<!>>/boot/loader.conf
+    snd_hda_load="YES"
+    i915kms_load="YES"
+    !
+
+    # 不安装窗口管理器，直接使用 startxfce4 启动桌面
+    echo ". /usr/local/etc/xdg/xfce4/xinitrc" > ~/.xinitrc
+
+    # 中文字体
+    mkdir -p /usr/local/share/fonts/extra_fonts_dir
+    cd !$
+    cp -R <你的字体文件存储路径>/* ./
+    mkfontdir && mkfontscale && fc-cache -fv
+
+    # 安装你需要的应用软件
+    pkg install ibus ibus-table firefox-esr cmake vim ...
+
+    # 使用桌面环境的用户需要加入 video 组
+    pw groupmod video -m <你的用户名>
+
+    # 从命令行终端启动桌面
+    startx
+\end{lstlisting}
